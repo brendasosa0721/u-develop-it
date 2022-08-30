@@ -48,12 +48,12 @@ db.query(`SELECT * FROM candidates WHERE id = 1`, (err, row) => {
 
 
 // Delete a candidate
-// db.query(`DELETE FROM candidates WHERE id = ?`, 1, (err, result) => {
-//   if (err) {
-//     console.log(err);
-//   }
-//   console.log(result);
-// });
+db.query(`DELETE FROM candidates WHERE id = ?`, 1, (err, result) => {
+  if (err) {
+    console.log(err);
+  }
+  console.log(result);
+});
 
 
 // Create a candidate
@@ -66,6 +66,22 @@ db.query(sql, params, (err, result) => {
     console.log(err);
   }
   console.log(result);
+});
+
+// Get all candidates
+app.get('/api/candidates', (req, res) => {
+  const sql = `SELECT * FROM candidates`;
+
+  db.query(sql, (err, rows) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+      return;
+    }
+    res.json({
+      message: 'success',
+      data: rows
+    });
+  });
 });
 
 
